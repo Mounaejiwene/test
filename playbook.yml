@@ -1,7 +1,9 @@
-- name: Déploiement direct dans le conteneur cible1
+- name: Déploiement dans cible1 depuis Jenkins
   hosts: localhost
   become: true
   tasks:
     - name: Écrire la page HTML dans cible1
-      shell: |
-        docker exec cible1 bash -c "mkdir -p /var/www/html && echo '<h1>Déploiement réussi via Jenkins + Ansible 🎉</h1>' > /var/www/html/index.html"
+      command: >
+        docker exec cible1 bash -c "mkdir -p /var/www/html &&
+        echo '<h1>Déploiement réussi via Jenkins + Ansible 🎉</h1>' > /var/www/html/index.html"
+      delegate_to: localhost
